@@ -2,7 +2,9 @@ import sendSequence from './sendSequence';
 
 export class PlaySequence {
 
-  constructor() {
+  constructor({ id, duration }) {
+    this._id = id;
+    this._mediaDuration = duration;
     this._start = 0;
     this._end = 0;
   }
@@ -26,6 +28,14 @@ export class PlaySequence {
   get duration() {
     return Math.max(this.end - this.start, 0);
   }
+
+  get id() {
+    return this._id;
+  }
+
+  get mediaDuration() {
+    return this._mediaDuration;
+  }
 }
 
 export default (player) => {
@@ -38,7 +48,7 @@ export default (player) => {
     let sequence;
 
     function startSequence() {
-      sequence = new PlaySequence();
+      sequence = new PlaySequence({ id: current.id, duration: current.duration });
       sequence.start = player.currentTime();
     }
 

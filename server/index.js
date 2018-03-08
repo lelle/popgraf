@@ -1,5 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import routes from './routes';
 
 const app = express();
 
@@ -12,16 +13,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get("/", (req, res) => {
-  res.status(200).send("popgraf api");
-});
-
-app.post("/playedsequence", (req, res) => {
-  res.status(200).send({
-    success: 'yes'
-  });
-});
-
+routes(app);
 
 const port = process.env.PORT || 3300;
 
