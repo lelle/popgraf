@@ -7,7 +7,7 @@ export default (sequence) => {
     mediaDuration: sequence.mediaDuration
   };
 
-  console.log(jsonSequence);
+  console.log('post /playedsequence', jsonSequence);
 
   return fetch('http://localhost:3300/playedsequence', {
       method: 'post',
@@ -19,6 +19,6 @@ export default (sequence) => {
     })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
+      console.log('response', data);
     });
 }
