@@ -18,5 +18,10 @@
   "bugs": {
     "url": "https://github.com/lelle/popgraf/issues"
   },
-  "homepage": "https://github.com/lelle/popgraf#readme"
+  "homepage": "https://github.com/lelle/popgraf#readme",
+  "devDependencies": {
+    "webpack": "^4.1.1",
+    "webpack-cli": "^2.0.10",
+    "webpack-dev-server": "^3.1.0"
+  }
 }
