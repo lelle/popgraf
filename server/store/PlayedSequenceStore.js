@@ -27,7 +27,7 @@ export default class PlayedSequenceStore {
 
       const startSecond = Math.floor(start / interval);
       const endSecond = Math.ceil(end / interval);
-      const intervals = endSecond - startSecond;
+      const intervals = Math.max(endSecond - startSecond, 0);
 
       [...Array(intervals)].forEach((x, i) => {
         const floor = startSecond + (i * interval);

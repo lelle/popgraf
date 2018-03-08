@@ -63,6 +63,13 @@ export default (player) => {
       sequence = null;
     }
 
+    player.on('seeked', () => {
+      if (player.isPaused()) {
+        return;
+      }
+      startSequence();
+    });
+
     player.on('playing', startSequence);
 
     player.on('pause', endSequence);
