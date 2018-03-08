@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Popularitetsgraf</title>
+  </head>
+  <body>
+    <div id="mount-here"></div>
+    <script src="https://static.nrk.no/ludo/latest/ludo.js"></script>
+    <script src="./js/index.js"></script>
+
+    <script>
+        var player = ludo(document.getElementById('mount-here'), ['nrk1'], {
+            debug: true
+        });
+        window.player = player;
+    </script>
+  </body>
+</html>
