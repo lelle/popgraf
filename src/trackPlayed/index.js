@@ -1,3 +1,5 @@
+import sendSequence from './sendSequence';
+
 export class PlaySequence {
 
   constructor() {
@@ -47,6 +49,7 @@ export default (player) => {
 
       sequence.end = player.currentTime();
       sequences.push(sequence);
+      sendSequence(sequence);
       sequence = null;
     }
 
