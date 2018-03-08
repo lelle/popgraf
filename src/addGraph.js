@@ -13,8 +13,30 @@ var graph = {
     }
 }
 
-const add = (numbers) => {
-  let hooks = player.get("stageElement").getElementsByClassName('ludo-layout') // bytte til query selector
+function verifyElementPresent(classId) {
+  let elem;
+  return new Promise(resolve => {
+    setTimeout(() => {
+      // elem = player.get("stageElement").getElementsByClassName('ludo-layout');
+elem = document.querySelector('.ludo-layout');
+      console.log('present now: ' + classId);
+      if (typeof(elem) !== undefined) {
+        console.log('typeof elem: ' + typeof(elem))
+        resolve(elem);
+      }
+    }, 200);
+  });
+}
+
+// async function f1() {
+//   var x = await verifyElementPresent('ludo-layout');
+//   console.log(x); // 10
+// }
+// f1();
+
+const add = async (numbers) => {
+  let hooks = await verifyElementPresent('.ludo-layout');
+  // let hooks = player.get("stageElement").getElementsByClassName('ludo-layout') // bytte til query selector
 
   let graphDiv = document.createElement('div');
   graphDiv.className = 'ludo-layout--graph';
@@ -43,7 +65,7 @@ const add = (numbers) => {
   strokeWidth.value = '3';
   let points = document.createAttribute('points');
   // points.value = numbers;
-  points.value = "0,40 10,40 20,50 30,55 40,70"
+  points.value = "0,340 10,340 20,350 30,355 40,370"
 
   polyline.setAttributeNode(fill);
   polyline.setAttributeNode(stroke);
@@ -55,7 +77,7 @@ const add = (numbers) => {
   graph.appendChild(polyline);
 
   // document.body.insertBefore(graphDiv);
-     document.body.insertBefore(graphDiv, hooks.firstElementChild);
+     hooks.insertBefore(graphDiv, hooks.firstElementChild);
      console.log("added " + graphDiv + " before " + hooks.firstElementChild);
      console.log(hooks);
 
