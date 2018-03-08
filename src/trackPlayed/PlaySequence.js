@@ -7,6 +7,7 @@ export default class PlaySequence {
   }
 
   set start(value) {
+    this._startSetTime = new Date().getTime();
     this._start = value;
   }
 
@@ -15,15 +16,22 @@ export default class PlaySequence {
   }
 
   set end(value) {
+    this._endSetTime = new Date().getTime();
     this._end = value;
   }
 
   get end() {
-    return this._end;
+    return this.start + this.duration;
   }
 
   get duration() {
-    return Math.max(this.end - this.start, 0);
+    const timeDuration = (this._endSetTime - this._startSetTime)/1000 || 0;
+    let videoDuration = this._end - this._start;
+    if (videoDuration <= 0) {
+      return Math.max(timeDuration, 0) ;
+    }
+    const lowestDuration = Math.min(timeDuration, videoDuration);
+    return Math.max(lowestDuration, 0);
   }
 
   get id() {

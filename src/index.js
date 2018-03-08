@@ -3,26 +3,15 @@ import parse from 'url-parse';
 import trackPlayed from './trackPlayed';
 import playedGraph from './playedGraph';
 
-import { cube, foo, graph, add } from './addGraph';
-
-
 const currentUrl = parse(window.location.href, true);
 const id = currentUrl.query.id || 'KMNO10005015';
 
 var player = ludo(document.getElementById('mount-here'), [id], {
-  debug: true,
   pinnedControlOverlay: true
 });
 
 window.player = player;
 
-// graph.options = {
-//   color:'blue',
-//   thickness:'3px'
-// };
-// graph.draw();
-// console.log(cube(3)); // 27
-// console.log(foo);    // 4.555806215962888
 trackPlayed(player);
 
 playedGraph(player);

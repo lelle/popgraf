@@ -9,10 +9,13 @@ export default (player) => {
 
     const sequences = [];
     let sequence;
+    let currentTime = 0;
+    let startSequenceTime;
 
     function startSequence() {
       sequence = new PlaySequence({ id: current.id, duration: current.duration });
       sequence.start = player.currentTime();
+      startSequenceTime = new Date().getTime();
     }
 
     function endSequence() {
@@ -20,24 +23,28 @@ export default (player) => {
         return;
       }
 
-      sequence.end = player.currentTime();
+      sequence.end = currentTime;
       sequences.push(sequence);
       sendSequence(sequence);
+
       sequence = null;
     }
 
-    player.on('seeked', () => {
-      if (player.isPaused()) {
-        return;
-      }
+    player.on('timeupdate', () => {
+      currentTime = player.currentTime();
+    });
+
+    player.on('playing', () => {
       startSequence();
     });
 
-    player.on('playing', startSequence);
+    player.on('pause', () => {
+      endSequence();
+    });
 
-    player.on('pause', endSequence);
-
-    player.on('seeking', endSequence);
+    player.on('seeking', () => {
+      endSequence();
+    });
 
   });
 
