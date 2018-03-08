@@ -4,7 +4,7 @@ module.exports = {
   },
   output: {
     path: `${__dirname}/public/dist/`,
-    publicPath: '/public/dist/',
+    publicPath: '/dist/',
     filename: '[name].js',
     library: '[name]',
     libraryTarget: 'umd'
