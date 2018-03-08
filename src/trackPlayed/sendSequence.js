@@ -1,3 +1,5 @@
+import config from '../config';
+
 export default (sequence) => {
   const jsonSequence = {
     id: sequence.id,
@@ -7,9 +9,9 @@ export default (sequence) => {
     mediaDuration: sequence.mediaDuration
   };
 
-  console.log('post /playedsequence', jsonSequence);
+  console.log('post /played', jsonSequence);
 
-  return fetch('http://localhost:3300/playedsequence', {
+  return fetch(`${config.playedServiceUrl}/played`, {
       method: 'post',
       headers: {
         'Accept': 'application/json, text/plain, */*',
@@ -17,8 +19,5 @@ export default (sequence) => {
       },
       body: JSON.stringify(jsonSequence)
     })
-    .then((res) => res.json())
-    .then((data) => {
-      console.log('response', data);
-    });
+    .then((res) => res.json());
 }

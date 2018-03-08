@@ -25,7 +25,8 @@ export default (player) => {
 
       sequence.end = currentTime;
       sequences.push(sequence);
-      sendSequence(sequence);
+      sendSequence(sequence)
+        .then((data) => player.emit('playedupdated', data));
 
       sequence = null;
     }

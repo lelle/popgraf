@@ -1,5 +1,5 @@
 import PlayedSequenceStore from './store/PlayedSequenceStore';
-import PlayedSequence from './store/PlayedSequence';
+import Played from './store/Played';
 
 export default (app) => {
 
@@ -9,11 +9,15 @@ export default (app) => {
     res.status(200).send("popgraf api");
   });
 
-  app.post("/playedsequence", (req, res) => {
-    const playedSequence = new PlayedSequence(req.body);
+  app.post("/played", (req, res) => {
+    const playedSequence = new Played(req.body);
 
     store.add(playedSequence);
 
     res.status(200).send(store.reduceSequence(playedSequence.id));
+  });
+
+  app.get("/intervals/:id", (req, res) => {
+    res.status(200).send(store.reduceSequence(req.params.id));
   });
 };

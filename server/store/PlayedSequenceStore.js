@@ -20,8 +20,6 @@ export default class PlayedSequenceStore {
       return [];
     }
 
-
-    console.log(sequences);
     return sequences.reduce((o, sequence) => {
       const { start, end } = sequence;
 

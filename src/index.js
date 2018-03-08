@@ -7,7 +7,7 @@ const currentUrl = parse(window.location.href, true);
 const id = currentUrl.query.id || 'KMNO10005015';
 
 var player = ludo(document.getElementById('mount-here'), [id], {
-  pinnedControlOverlay: true
+  'pinned-control-overlay': true
 });
 
 window.player = player;
