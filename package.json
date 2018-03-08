@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode development",
-    "start": "webpack-dev-server --mode development",
+    "start": "webpack-dev-server --mode development --content-base public/",
     "server": "babel-node ./server/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server:watch": "nodemon --exec 'npm run server'",
+    "watch": "run-p server:watch start"
   },
   "repository": {
     "type": "git",
@@ -38,6 +39,7 @@
     "babel-core": "^7.0.0-bridge.0",
     "eslint": "^4.18.2",
     "global": "^4.3.2",
+    "nodemon": "^1.17.1",
     "ts-loader": "^4.0.0",
     "typescript": "^2.7.2",
     "url-parse": "^1.2.0",
