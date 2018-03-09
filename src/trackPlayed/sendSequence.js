@@ -1,4 +1,4 @@
-import config from '../config';
+import { playedServiceUrl } from '../config';
 
 export default (sequence) => {
   const jsonSequence = {
@@ -11,7 +11,7 @@ export default (sequence) => {
 
   console.log('post /played', jsonSequence);
 
-  return fetch(`${config.playedServiceUrl}/played`, {
+  return fetch(`${playedServiceUrl()}/played`, {
       method: 'post',
       headers: {
         'Accept': 'application/json, text/plain, */*',

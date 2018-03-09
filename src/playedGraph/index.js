@@ -1,4 +1,4 @@
-import config from '../config';
+import { playedServiceUrl } from '../config';
 import graph from './graph';
 
 export default (player) => {
@@ -9,7 +9,7 @@ export default (player) => {
   player.on('prepared', () => {
     current = player.current();
 
-    return fetch(`${config.playedServiceUrl}/intervals/${current.id}`, {
+    return fetch(`${playedServiceUrl()}/intervals/${current.id}`, {
       method: 'get',
       headers: {
         'Accept': 'application/json, text/plain, */*',
