@@ -27,7 +27,7 @@ export default (stageElement) => {
     const path = points.map((val, i) => {
       return [i * width, val].join(',');
     }).join(' ');
-    
+
     return html`<svg viewBox="0 0 ${WIDTH} ${HEIGHT}" preserveAspectRatio="none" width="100%" height="20%">
 
     <defs>
@@ -39,11 +39,26 @@ export default (stageElement) => {
       </defs>
       <polygon id="played"
         points="0,${HEIGHT} ${path} ${WIDTH},${HEIGHT}"
-        fill="url(#gradient)" 
+        fill="url(#gradient)"
         stroke="#fff"
         stroke-width=".5"
         stroke-linecap="round" />
-      </svg>`
+
+      <g class="grid y-grid" height="20%">
+        <line x1="0" x2="${WIDTH}" y1="${HEIGHT}" y2="${HEIGHT}" stroke="#fff" stroke-width=".5"></line>
+        <line x1="0" x2="${WIDTH}" y1="${HEIGHT/2}" y2="${HEIGHT/2}" stroke="#fff" stroke-width=".5"></line>
+        <line x1="0" x2="${WIDTH}" y1="${HEIGHT/4}" y2="${HEIGHT/4}" stroke="#fff" stroke-width=".5"></line>
+        <line x1="0" x2="${WIDTH}" y1="${HEIGHT*3/4}" y2="${HEIGHT*3/4}" stroke="#fff" stroke-width=".5"></line>
+        <line x1="0" x2="${WIDTH}" y1="${0}" y2="${0}" stroke="#fff" stroke-width=".5"></line>
+      </g>
+      <g class="labels y-labels" stroke="#fff" stroke-width=".5">
+        <text x="${WIDTH*0.9}" y="${HEIGHT/4+10}">${parseInt(max*3/4)}</text>
+        <text x="${WIDTH*0.9}" y="${HEIGHT/2+10}">${parseInt(max/2)}</text>
+        <text x="${WIDTH*0.9}" y="${HEIGHT*3/4+10}">${parseInt(max/4)}</text>
+        <text x="${WIDTH*0.9}" y="10">${parseInt(max)}</text>
+      </g>
+
+</svg>`
   };
 
   return {
@@ -55,7 +70,7 @@ export default (stageElement) => {
           parent.appendChild(root);
         }
       }
-      
+
       render(markup(data, duration), root);
     }
   };
