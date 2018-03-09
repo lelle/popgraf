@@ -18,7 +18,7 @@ function verifyElementPresent(classId) {
   return new Promise(resolve => {
     setTimeout(() => {
       // elem = player.get("stageElement").getElementsByClassName('ludo-layout');
-elem = document.querySelector('.ludo-layout');
+elem = document.querySelector('.ludo-outer');
       console.log('present now: ' + classId);
       if (typeof(elem) !== undefined) {
         console.log('typeof elem: ' + typeof(elem))
@@ -35,17 +35,23 @@ elem = document.querySelector('.ludo-layout');
 // f1();
 
 const add = async (numbers) => {
-  let hooks = await verifyElementPresent('.ludo-layout');
-  // let hooks = player.get("stageElement").getElementsByClassName('ludo-layout') // bytte til query selector
+  let outer = await verifyElementPresent('.ludo-outer');
+  // let outer = player.get("stageElement").getElementsByClassName('ludo-layout') // bytte til query selector
 
   let graphDiv = document.createElement('div');
   graphDiv.className = 'ludo-layout--graph';
+  let style = document.createAttribute('style');
+  style.value = 'display: block; position: absolute; height: 100%; top: 0; left: 0; width: 100%';
+  graphDiv.setAttributeNode(style);
 
-  let graph = document.createElement('svg');
+  let graph = document.createElementNS('svg', 'www.w3.org/2000/svg');
   graph.className = 'chart';
+
   let vb = document.createAttribute('viewBox');
   vb.value = [0, 0, 500, 300];
   graph.setAttributeNode(vb);
+
+
 
   // <polyline
   //     fill="none"
@@ -65,7 +71,7 @@ const add = async (numbers) => {
   strokeWidth.value = '3';
   let points = document.createAttribute('points');
   // points.value = numbers;
-  points.value = "0,340 10,340 20,350 30,355 40,370"
+  points.value = "0,40 10,40 20,50 30,55 40,70"
 
   polyline.setAttributeNode(fill);
   polyline.setAttributeNode(stroke);
@@ -76,10 +82,19 @@ const add = async (numbers) => {
   graphDiv.appendChild(graph);
   graph.appendChild(polyline);
 
-  // document.body.insertBefore(graphDiv);
-     hooks.insertBefore(graphDiv, hooks.firstElementChild);
-     console.log("added " + graphDiv + " before " + hooks.firstElementChild);
-     console.log(hooks);
+  // <div class="ludo-layout--graph"
+  //   style="display: block; z-index:5; position: absolute;
+  //           height: 100%; top: 0; left: 0; width: 100%">
+  //   <svg class="chart" viewBox="0,0,500,300">
+  //     <polyline fill="none" stroke="#0074d9" stroke-width="3"
+  //       points="0,40 10,40 20,50 30,55 40,70">
+  //     </polyline>
+  //   </svg>
+  // </div>
+  //  document.body.insertBefore(graphDiv);
+      outer.insertBefore(graphDiv, outer.children[1]);
+      console.log("added " + graphDiv + " before " + outer.firstElementChild);
+      console.log(outer);
 
 }
 

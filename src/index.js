@@ -9,7 +9,7 @@ const id = currentUrl.query.id || 'FUHA00005980';
 
 var player = ludo(document.getElementById('mount-here'), [id], {
   debug: true,
-  pinnedControlOverlay: false
+  pinnedControlOverlay: true
 });
 window.player = player;
 
@@ -23,7 +23,7 @@ window.player = player;
 // console.log(foo);    // 4.555806215962888
 
 
-player.on('playing', () => {
+player.once('playing', () => {
   // var x = await verifyElementPresent('ludo-layout');
   add([1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,998,998,998,996,996,996,970,970,970,970,970]);
 });
