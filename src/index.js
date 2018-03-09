@@ -6,11 +6,14 @@ import playedGraph from './playedGraph';
 const currentUrl = parse(window.location.href, true);
 const id = currentUrl.query.id || 'KMNO10005015';
 
-var player = ludo(document.getElementById('mount-here'), [id], {
+const player = ludo(document.getElementById('mount-here'), [id], {
   'pinned-control-overlay': true
 });
 
 window.player = player;
+
+const socket = io();
+socket.emit('chat message', $('#m').val());
 
 trackPlayed(player);
 
