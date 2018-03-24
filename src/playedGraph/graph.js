@@ -1,4 +1,5 @@
 import {svg, html, render} from 'lit-html';
+import smooth from 'smooth-polyline';
 
 const HEIGHT = 150;
 const WIDTH = 1000;
@@ -24,9 +25,9 @@ export default (stageElement) => {
     });
     const width = WIDTH/count;
 
-    const path = points.map((val, i) => {
-      return [i * width, val].join(',');
-    }).join(' ');
+    const coords = points.map((val, i) => [i * width, val]);
+    const smoothend = smooth(smooth(smooth(coords)));
+    const path = smoothend.map((points) => points.join(',')).join(' ');
     
     return html`<svg viewBox="0 0 ${WIDTH} ${HEIGHT}" preserveAspectRatio="none" width="100%" height="20%">
 
