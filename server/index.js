@@ -1,3 +1,4 @@
+import http, { Server } from 'http';
 import express from 'express';
 import bodyParser from 'body-parser';
 import routes from './routes';
@@ -6,11 +7,12 @@ import socket from './socket';
 const port = process.env.PORT || 3300;
 
 const app = express();
+const server = http.Server(app);
 
 app.set('ipaddr', '127.0.0.1');
 app.set('port', port);
 
-socket(app);
+socket(server);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -26,6 +28,6 @@ app.use(express.static('public'));
 routes(app);
 
 
-app.listen(port);
+server.listen(port);
 
 console.log('Server started on port: ' + port);

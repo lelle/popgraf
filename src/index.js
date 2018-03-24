@@ -13,7 +13,6 @@ const player = ludo(document.getElementById('mount-here'), [id], {
 window.player = player;
 
 const socket = io();
-socket.emit('chat message', $('#m').val());
 
 trackPlayed(player);
 
