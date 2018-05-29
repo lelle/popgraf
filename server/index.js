@@ -4,6 +4,10 @@ import bodyParser from 'body-parser';
 import routes from './routes';
 import socket from './socket';
 import EventEmitter from 'events';
+import PlayedSequenceStore from './store/PlayedSequenceStore';
+import Played from "./store/Played";
+
+const store = new PlayedSequenceStore();
 
 const port = process.env.PORT || 3300;
 
@@ -15,7 +19,7 @@ app.set('port', port);
 
 const events = new EventEmitter();
 
-socket(server, events);
+const sock = socket(server, events, store);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -30,6 +34,15 @@ app.use(express.static('public'));
 
 routes(app, events);
 
+events.on('add', (data) => {
+  console.log('add', data);
+  const playedSequence = new Played(data);
+
+  store.add(playedSequence);
+
+  const sequence = store.reduceSequence(playedSequence.id);
+  sock.updated(sequence);
+});
 
 server.listen(port);
 

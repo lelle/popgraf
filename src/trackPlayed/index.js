@@ -1,7 +1,6 @@
-import sendSequence from './sendSequence';
 import PlaySequence from './PlaySequence';
 
-export default (player) => {
+export default (player, socket) => {
 
   player.once('prepared', () => {
 
@@ -25,8 +24,14 @@ export default (player) => {
 
       sequence.end = currentTime;
       sequences.push(sequence);
-      sendSequence(sequence)
-        .then((data) => player.emit('playedupdated', data));
+
+      socket.emit('add', {
+        id: sequence.id,
+        duration: sequence.duration,
+        end: sequence.end,
+        start: sequence.start,
+        mediaDuration:sequence.mediaDuration
+      });
 
       sequence = null;
     }

@@ -1,10 +1,6 @@
-import PlayedSequenceStore from './store/PlayedSequenceStore';
 import Played from './store/Played';
 
 export default (app, events) => {
-
-  const store = new PlayedSequenceStore();
-
   app.get("/", (req, res) => {
     res.status(200).send("popgraf api");
   });

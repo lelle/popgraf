@@ -14,15 +14,20 @@ window.player = player;
 
 const socket = io();
 
-trackPlayed(player);
+const tracker = trackPlayed(player, socket);
 
 const graph = playedGraph(player);
 
-socket.on('update', (sequence) => {
-  console.log('update', sequence);
+socket.on('updated', (sequence) => {
+  console.log('updated', sequence);
   graph.update(sequence);
 });
 
+
+player.on('prepared', () => {
+  const current = player.current();
+  socket.emit('get', current.id);
+});
 
 //player.on('playing', () => {
 //  add([1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,1000,998,998,998,996,996,996,970,970,970,970,970]);
