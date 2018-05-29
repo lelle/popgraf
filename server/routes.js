@@ -1,7 +1,7 @@
 import PlayedSequenceStore from './store/PlayedSequenceStore';
 import Played from './store/Played';
 
-export default (app) => {
+export default (app, events) => {
 
   const store = new PlayedSequenceStore();
 
@@ -14,7 +14,10 @@ export default (app) => {
 
     store.add(playedSequence);
 
-    res.status(200).send(store.reduceSequence(playedSequence.id));
+    const sequence = store.reduceSequence(playedSequence.id);
+    res.status(200).send(sequence);
+
+    events.emit('update', sequence);
   });
 
   app.get("/intervals/:id", (req, res) => {

@@ -30,4 +30,9 @@ export default (player) => {
     g.plot(data, current.duration);
   });
 
+  function update(sequence) {
+    g.plot(sequence, current.duration);
+  }
+
+  return { update };
 };

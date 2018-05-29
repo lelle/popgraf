@@ -1,6 +1,6 @@
 import socketio from 'socket.io';
 
-export default (server) => {
+export default (server, events) => {
   console.log('socket.io');
 
   const io = socketio(server);
@@ -10,4 +10,8 @@ export default (server) => {
   });    
 
   console.log('socket.io initialized');
+
+  events.on('update', (sequence) => {
+    io.emit('update', sequence);
+  });
 };

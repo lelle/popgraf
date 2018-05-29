@@ -3,6 +3,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import routes from './routes';
 import socket from './socket';
+import EventEmitter from 'events';
 
 const port = process.env.PORT || 3300;
 
@@ -12,7 +13,9 @@ const server = http.Server(app);
 app.set('ipaddr', '127.0.0.1');
 app.set('port', port);
 
-socket(server);
+const events = new EventEmitter();
+
+socket(server, events);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -25,7 +28,7 @@ app.use((req, res, next) => {
 
 app.use(express.static('public'));
 
-routes(app);
+routes(app, events);
 
 
 server.listen(port);

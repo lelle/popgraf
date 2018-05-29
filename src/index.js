@@ -16,7 +16,12 @@ const socket = io();
 
 trackPlayed(player);
 
-playedGraph(player);
+const graph = playedGraph(player);
+
+socket.on('update', (sequence) => {
+  console.log('update', sequence);
+  graph.update(sequence);
+});
 
 
 //player.on('playing', () => {
