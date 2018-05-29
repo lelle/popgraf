@@ -6,6 +6,10 @@ export default (player) => {
   const g = graph(player.get('stageElement'));
   let current;
 
+  player.on('prepared', () => {
+    current = player.current();
+  });
+
   player.on('playedupdated', (data) => {
     if (!current) {
       return;
@@ -14,6 +18,9 @@ export default (player) => {
   });
 
   function update(sequence) {
+    if (!current) {
+      return;
+    }
     g.plot(sequence, current.duration);
   }
 

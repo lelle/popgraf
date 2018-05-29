@@ -1,4 +1,5 @@
 import PlaySequence from './PlaySequence';
+import throttle from 'lodash.throttle';
 
 export default (player, socket) => {
 
@@ -38,6 +39,7 @@ export default (player, socket) => {
 
     player.on('timeupdate', () => {
       currentTime = player.currentTime();
+      throttler();
     });
 
     player.on('playing', () => {
@@ -51,6 +53,14 @@ export default (player, socket) => {
     player.on('seeking', () => {
       endSequence();
     });
+
+    const throttler = throttle(() => {
+      if (player.isPaused()) {
+        return;
+      }
+      endSequence();
+      startSequence();
+    }, 1000);
 
   });
 
